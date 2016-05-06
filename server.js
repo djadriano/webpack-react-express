@@ -14,7 +14,7 @@ app.set('view engine', 'jade');
 app.enable('trust proxy');
 
 app.use(router);
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static('public'));
 
 router.options('/posts', cors());
 router.get('/posts', cors(), function (req, res) {
