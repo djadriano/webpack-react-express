@@ -18,7 +18,11 @@ app.use(express.static('public'));
 
 router.options('/posts', cors());
 router.get('/posts', cors(), function (req, res) {
-  postController.posts();
+  postController.posts().then(function(data) {
+    res.json({
+      posts: data
+    });
+  });
 });
 
 router.route('/').get(function(req, res) {

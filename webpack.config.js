@@ -12,9 +12,10 @@ module.exports = {
     publicPath: 'http://localhost:8080/public/javascripts/',
     filename: "bundle.js"
   },
+  devtool: 'eval',
   devServer: {
     proxy: {
-      '/posts/*': 'http://localhost:5000/'
+      '*': 'http://localhost:5000/'
     }
   },
   module: {

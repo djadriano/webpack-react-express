@@ -1,4 +1,4 @@
-var request = require('request');
+var request = require('request-promise');
 var cheerio = require('cheerio');
 var google = require('googleapis');
 var Q = require('q');
@@ -13,35 +13,35 @@ module.exports = {
   arrPosts: [],
   arrPostsVideos: [],
 
+  storePosts: function( $ ) {
+    var posts = $( '.ttl4reg' );
+    var self = this;
+
+    posts.filter(function(i, item) {
+
+      var postReplaced = item.attribs.title.replace(/_/g, " ");
+      postReplaced = postReplaced.split( '-(' )[ 0 ];
+
+      self.arrPosts.push( postReplaced );
+
+    });
+
+    return self.getYoutubeVideos();
+  },
+
   posts: function() {
 
     var url = 'http://1gabba.net/genre/hardstyle';
     var self = this;
 
-    request(url, function(error, response, html){
+    var options = {
+        uri: url,
+        transform: function (body) {
+          return cheerio.load(body);
+        }
+    };
 
-      if(!error){
-
-        var $ = cheerio.load( html );
-
-        var posts = $( '.ttl4reg' );
-
-        posts.filter(function(i, item) {
-
-          var postReplaced = item.attribs.title.replace(/_/g, " ");
-          postReplaced = postReplaced.split( '-(' )[ 0 ];
-
-          self.arrPosts.push( postReplaced );
-
-        });
-
-        self.getYoutubeVideos().then(function(data) {
-          console.log('acaboooou', data);
-        });
-
-      }
-
-    });
+    return request(options).then(self.storePosts.bind(this));
 
   },
 
@@ -62,10 +62,7 @@ module.exports = {
       };
 
       var promise = youtube.search.list(queryOptions, function(err, data) {
-        if(err) {
-          deferred.reject(result);
-        }
-        deferred.resolve(data);
+        err ? deferred.reject(result) : deferred.resolve(data);
       });
 
       promises.push(deferred.promise);
