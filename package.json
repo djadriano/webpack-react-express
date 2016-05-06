@@ -5,7 +5,7 @@
   "scripts": {
     "prestart": "webpack --config webpack.config.js --progress --colors",
     "bundle": "nodemon server.js --watch server & webpack-dev-server --config webpack.config.js --progress --colors",
-    "start": "npm run bundle"
+    "start": "webpack --config webpack.config.js --progress --colors"
   },
   "dependencies": {
     "body-parser": "~1.13.2",
