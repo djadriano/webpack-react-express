@@ -3,10 +3,10 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "prestart": "webpack --config webpack-prod.config.js --progress --colors",
+    "build": "webpack --config webpack-prod.config.js --progress --colors",
     "bundle": "nodemon server.js --watch server & webpack-dev-server --config webpack.config.js --progress --colors",
     "dev": "npm run bundle",
-    "start": "node server.js"
+    "start": "npm run build & node server.js"
   },
   "dependencies": {
     "body-parser": "~1.13.2",
