@@ -3,7 +3,7 @@ var webpack = require('webpack');
 
 module.exports = {
   entry: [
-    'webpack-dev-server/client?http://localhost:8080',
+    'webpack-dev-server/client?http://0.0.0.0:8080',
     'webpack/hot/only-dev-server',
     './index.jsx'
   ],
@@ -12,10 +12,12 @@ module.exports = {
     publicPath: 'http://localhost:8080/public/javascripts/',
     filename: "bundle.js"
   },
-  devtool: 'eval',
   devServer: {
     proxy: {
-      '*': 'http://localhost:5000/'
+      '/posts': {
+        target: 'http://localhost:5000',
+        secure: false
+      }
     }
   },
   module: {

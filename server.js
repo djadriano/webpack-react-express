@@ -4,33 +4,18 @@ var app     = express();
 var router  = express.Router();
 var cors   = require('cors');
 
-var postController = require('./controllers/posts');
-
-var static_path = path.join(__dirname, '');
+var indexRouter = require('./routes/index');
+var postsRouter = require('./routes/posts');
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
 app.enable('trust proxy');
 
-app.use(router);
+app.use( '/', indexRouter );
+app.use( '/', postsRouter );
+
 app.use(express.static('public'));
-
-router.options('/posts', cors());
-router.get('/posts', cors(), function (req, res) {
-  postController.posts().then(function(data) {
-    res.json({
-      posts: data
-    });
-  });
-});
-
-router.route('/').get(function(req, res) {
-    res.header('Cache-Control', "max-age=60, must-revalidate, private");
-    res.sendFile('index.html', {
-        root: static_path
-    });
-});
 
 var server = app.listen(process.env.PORT || 5000, function () {
 

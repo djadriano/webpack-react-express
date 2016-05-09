@@ -1,11 +1,15 @@
 var express = require('express');
 var router = express.Router();
-// var postController = require('../controllers/posts');
+var cors   = require('cors');
 
-/* GET users listing. */
-router.get('/posts', function(req, res, next) {
-  // postController.posts();
-  res.render('index', { title: 'Posts' });
+router.get('/posts', cors(), function (req, res) {
+
+  var postController = require('../controllers/posts')();
+
+  postController.posts().then(function(data) {
+    res.json({ posts: data });
+  });
+
 });
 
 module.exports = router;

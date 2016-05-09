@@ -188,6 +188,9 @@
 	var queueIndex = -1;
 	
 	function cleanUpNextTick() {
+	    if (!draining || !currentQueue) {
+	        return;
+	    }
 	    draining = false;
 	    if (currentQueue.length) {
 	        queue = currentQueue.concat(queue);
@@ -20191,8 +20194,31 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
-	var Hello = function (_React$Component) {
-	  _inherits(Hello, _React$Component);
+	var PostComponent = function (_React$Component) {
+	  _inherits(PostComponent, _React$Component);
+	
+	  function PostComponent(props) {
+	    _classCallCheck(this, PostComponent);
+	
+	    return _possibleConstructorReturn(this, Object.getPrototypeOf(PostComponent).call(this, props));
+	  }
+	
+	  _createClass(PostComponent, [{
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        'p',
+	        null,
+	        'Post Component'
+	      );
+	    }
+	  }]);
+	
+	  return PostComponent;
+	}(_react2.default.Component);
+	
+	var Hello = function (_React$Component2) {
+	  _inherits(Hello, _React$Component2);
 	
 	  function Hello(props) {
 	    _classCallCheck(this, Hello);
@@ -20215,18 +20241,67 @@
 	  }, {
 	    key: 'getPostsByApi',
 	    value: function getPostsByApi() {
+	      var _this3 = this;
+	
 	      _superagent2.default.get('/posts').end(function (err, res) {
 	        console.log(res);
+	        _this3.setState({
+	          posts: res.body.posts
+	        });
 	      });
+	    }
+	  }, {
+	    key: 'renderPosts',
+	    value: function renderPosts() {
+	      var _this4 = this;
+	
+	      if (!this.state.posts.length) {
+	        return _react2.default.createElement(
+	          'span',
+	          null,
+	          'Carregando...'
+	        );
+	      }
+	
+	      return _react2.default.createElement(
+	        'ul',
+	        null,
+	        this.state.posts.filter(function (item) {
+	          if (item.items.length) return item;
+	        }).map(function (item, index) {
+	          return _react2.default.createElement(
+	            'li',
+	            { key: index },
+	            _react2.default.createElement(
+	              'h5',
+	              null,
+	              item.etag
+	            ),
+	            _this4.renderItems(item)
+	          );
+	        })
+	      );
+	    }
+	  }, {
+	    key: 'renderItems',
+	    value: function renderItems(item) {
+	      return _react2.default.createElement(
+	        'ul',
+	        null,
+	        item.items.map(function (_item) {
+	          var yt_url = 'https://www.youtube.com/embed/' + _item.id.videoId;
+	          return _react2.default.createElement(
+	            'li',
+	            null,
+	            _item.snippet.title
+	          );
+	        })
+	      );
 	    }
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      return _react2.default.createElement(
-	        'p',
-	        null,
-	        'Hello World React'
-	      );
+	      return this.renderPosts();
 	    }
 	  }]);
 	

@@ -53,7 +53,6 @@ export default class Hello extends React.Component {
           } )
           .map( (item, index) => {
             return ( <li key={index}>
-              <h5>{item.etag}</h5>
               {this.renderItems(item)}
             </li> )
           } )
