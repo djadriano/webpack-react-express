@@ -57,9 +57,11 @@ module.exports = function() {
         var deferred = Q.defer();
 
         var queryOptions = {
-            'part'      : 'snippet',
-            'maxResults': 1,
-            'q'         : item
+            'part'           : 'snippet',
+            'maxResults'     : 1,
+            'type'           : 'video',
+            'videoCategoryId': 10,
+            'q'              : item
         };
 
         var promise = youtube.search.list(queryOptions, function(err, data) {
