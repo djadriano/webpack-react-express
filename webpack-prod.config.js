@@ -12,7 +12,10 @@ module.exports = {
   devtool:'source-map',
   devServer: {
     proxy: {
-      '/posts/*': 'http://localhost:5000/'
+      '/posts': {
+        target: 'http://localhost:5000',
+        secure: false
+      }
     }
   },
   module: {

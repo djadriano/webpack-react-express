@@ -8,7 +8,7 @@ class PostComponent extends React.Component {
 
   render() {
     return(
-      <p>Post Component</p>
+      <p>Post Components</p>
     )
   }
 }
@@ -65,7 +65,7 @@ export default class Hello extends React.Component {
     return (
       <ul>
         {item.items.map( (_item) => {
-          var yt_url = `https://www.youtube.com/embed/${_item.id.videoId}`;
+          var yt_url = `http://www.youtube.com/embed/${_item.id.videoId}`;
           return (
             <li>
               {_item.snippet.title}

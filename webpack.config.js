@@ -1,15 +1,20 @@
 var path = require('path');
 var webpack = require('webpack');
+var precss       = require('precss');
+var autoprefixer = require('autoprefixer');
+var postcssImport = require('postcss-import');
+var HtmlWebpackPlugin = require('html-webpack-plugin');
+var rootPath = path.resolve( __dirname );
 
 module.exports = {
+  devtool: 'source-map',
   entry: [
-    'webpack-dev-server/client?http://0.0.0.0:8080',
+    'webpack-dev-server/client?http://localhost:8080',
     'webpack/hot/only-dev-server',
-    './index.jsx'
+    './client/source/javascripts/index.jsx'
   ],
   output: {
-    path: __dirname + '/public/javascripts',
-    publicPath: 'http://localhost:8080/public/javascripts/',
+    path: path.resolve(rootPath, 'public'),
     filename: "bundle.js"
   },
   devServer: {
@@ -25,15 +30,30 @@ module.exports = {
        {
          test: /\.jsx?$/,
          exclude: /(node_modules)/,
-         loaders: ['react-hot', 'babel'],
-         include: path.join(__dirname, '')
+         loaders: ['react-hot', 'babel']
+       },
+       {
+          test:   /\.css$/,
+          loaders: ['style-loader', 'css-loader', 'postcss-loader']
        }
      ]
    },
    resolve: {
-     extensions: ['', '.js', '.jsx']
+     extensions: ['', '.js', '.jsx', '.css']
+   },
+   postcss: function (webpack) {
+      return [
+        precss,
+        autoprefixer,
+        postcssImport({
+          addDependencyTo: webpack
+        })
+      ];
    },
    plugins: [
-      new webpack.HotModuleReplacementPlugin()
+      new webpack.HotModuleReplacementPlugin(),
+      new HtmlWebpackPlugin({
+        template: './client/layouts/index.html'
+      })
    ]
 }
