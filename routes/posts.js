@@ -4,7 +4,7 @@ var cors   = require('cors');
 
 router.get('/posts', cors(), function (req, res) {
 
-  var postController = require('../controllers/posts')();
+  var postController = require('../server/controllers/posts')();
 
   postController.posts().then(function(data) {
     res.json({ posts: data });

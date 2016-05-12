@@ -1,3 +1,8 @@
+html {
+  font-size: responsive 12px 21px;
+  font-range: 420px 1280px;
+}
+
 body {
   background: red;
 }
