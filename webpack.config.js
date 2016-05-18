@@ -5,6 +5,7 @@ var autoprefixer = require('autoprefixer');
 var postcssImport = require('postcss-import');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var rucksack = require('rucksack-css');
+var stylelint = require("stylelint");
 var rootPath = path.resolve( __dirname );
 
 module.exports = {
@@ -47,6 +48,7 @@ module.exports = {
         precss,
         autoprefixer,
         rucksack,
+        stylelint(),
         postcssImport({
           addDependencyTo: webpack
         })
