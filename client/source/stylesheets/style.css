@@ -1,3 +1,5 @@
+@import '../../../node_modules/bulma/css/bulma.css';
+
 body {
   font-size: responsive 12px 21px;
   font-range: 420px 1280px;
