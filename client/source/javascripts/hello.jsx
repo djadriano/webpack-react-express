@@ -32,7 +32,6 @@ export default class Hello extends React.Component {
     request
      .get('/posts')
      .end((err, res) => {
-        console.log(res);
         this.setState({
           posts: res.body.posts
         });
@@ -44,36 +43,37 @@ export default class Hello extends React.Component {
       return (<span>Carregando...</span>);
     }
 
+    let foo = this.state.posts
+      .filter((item) => {
+        if(item.items.length) return item;
+      })
+      .map((item, index) => {
+        return this.renderItems(item);
+      })
+
     return (
-      <ul>
-      {
-        this.state.posts
-          .filter( (item) => {
-            if(item.items.length) return item;
-          } )
-          .map( (item, index) => {
-            return ( <li key={index}>
-              {this.renderItems(item)}
-            </li> )
-          } )
-      }
-      </ul>
+      <div className="columns is-desktop">
+        {foo}
+      </div>
     );
   }
 
-  renderItems( item ){
+  renderItems( item ) {
     return (
-      <ul>
-        {item.items.map( (_item) => {
-          var yt_url = `http://www.youtube.com/embed/${_item.id.videoId}`;
-          return (
-            <li>
-              {_item.snippet.title}
-              <p><iframe width="560" height="315" src={yt_url} frameborder="0" allowfullscreen></iframe></p>
-            </li>
-          )
-        })}
-      </ul>
+      <div className="column is2">
+        {
+          item.items.map((_item) => {
+            var yt_url = `http://www.youtube.com/embed/${_item.id.videoId}`;
+            return(
+              <div className="card">
+                <div className="content">
+                  <span>{_item.snippet.title}</span>
+                </div>
+              </div>
+            )
+          })
+        }
+      </div>
     )
   }
 
