@@ -35,13 +35,13 @@ module.exports = {
          loaders: ['react-hot', 'babel']
        },
        {
-          test:   /\.css$/,
-          loaders: ['style-loader', 'css-loader', 'postcss-loader']
+          test: /\.scss$/,
+          loaders: ['style', 'css', 'postcss', 'sass']
        }
      ]
    },
    resolve: {
-     extensions: ['', '.js', '.jsx', '.css']
+     extensions: ['', '.js', '.jsx', '.scss']
    },
    postcss: function (webpack) {
       return [
