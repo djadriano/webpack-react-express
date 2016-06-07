@@ -20,7 +20,8 @@ export default class Hello extends React.Component {
 
   componentWillMount() {
     this.setState({
-      posts: []
+      posts: [],
+      currentPage: 0
     });
   }
 
@@ -29,11 +30,25 @@ export default class Hello extends React.Component {
   }
 
   getPostsByApi() {
+    let arrPosts = [];
+    let currentArrPosts = [];
+    let nextPage = this.state.currentPage;
+
+    console.log(nextPage);
+
     request
-     .get('/posts')
+     .get(`/posts/`)
      .end((err, res) => {
+
+        if(nextPage === '') {
+          arrPosts = res.body.posts;
+        } else {
+          currentArrPosts = this.state.posts;
+          arrPosts = currentArrPosts.push(res.body.posts);
+        }
+
         this.setState({
-          posts: res.body.posts
+          posts: arrPosts
         });
      });
   }
@@ -54,8 +69,17 @@ export default class Hello extends React.Component {
     return (
       <div className="columns is-desktop">
         {foo}
+        <button onClick={this.nextPage}>Next Page</button>
       </div>
     );
+  }
+
+  nextPage() {
+    this.setState({
+      currentPage: this.state.currentPage++
+    });
+
+    this.getPostsByApi();
   }
 
   renderItems( item ) {
