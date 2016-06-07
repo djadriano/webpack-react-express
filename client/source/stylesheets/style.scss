@@ -5,3 +5,15 @@ body {
   font-size: responsive 12px 21px;
   font-range: 420px 1280px;
 }
+
+.gabba-main {}
+
+.gabba-posts {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+
+  li {
+    flex: 1 1 33.333%;
+  }
+}

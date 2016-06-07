@@ -5,4 +5,4 @@ import HomeStyle from '../stylesheets/style';
 
 import Hello from './hello';
 
-ReactDom.render(<Hello />, document.getElementById('content'));
+// ReactDom.render(<Hello />, document.getElementById('content'));
