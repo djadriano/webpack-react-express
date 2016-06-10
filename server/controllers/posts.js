@@ -15,7 +15,7 @@ module.exports = function() {
     currentPage: 0,
 
     storePosts: function( $ ) {
-      var currentPage = $( '.drpager-page' ).val();
+      // var currentPage = $( '.drpager-page' ).varal();
       var posts = $( '.ttl4reg' );
       var self = this;
 
@@ -120,16 +120,6 @@ module.exports = function() {
       //           }
       //         }
       //       ]
-      //     },
-      //     {
-      //       "kind": "youtube#searchListResponse",
-      //       "etag": "\"kiOs9cZLH2FUp6r6KJ8eyq_LIOk/uBAm7yqr4Oe_pmQYKCUOQ7oa2oU\"",
-      //       "regionCode": "BR",
-      //       "pageInfo": {
-      //         "totalResults": 0,
-      //         "resultsPerPage": 1
-      //       },
-      //       "items": []
       //     },
       //     {
       //       "kind": "youtube#searchListResponse",
@@ -850,16 +840,6 @@ module.exports = function() {
       //           }
       //         }
       //       ]
-      //     },
-      //     {
-      //       "kind": "youtube#searchListResponse",
-      //       "etag": "\"kiOs9cZLH2FUp6r6KJ8eyq_LIOk/uBAm7yqr4Oe_pmQYKCUOQ7oa2oU\"",
-      //       "regionCode": "BR",
-      //       "pageInfo": {
-      //         "totalResults": 0,
-      //         "resultsPerPage": 1
-      //       },
-      //       "items": []
       //     }
       // ];
 
@@ -887,6 +867,8 @@ module.exports = function() {
       };
 
       return request(options).then(self.storePosts.bind(this));
+
+      // self.storePosts.bind(this);
 
     },
 
@@ -917,7 +899,11 @@ module.exports = function() {
       });
 
       return Q.all(promises).then(function(data) {
-        return data;
+        var dataFiltered = data.filter(function(item) {
+          if(item.items.length) return item;
+        });
+
+        return dataFiltered;
       });
 
     }
