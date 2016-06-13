@@ -24,6 +24,10 @@ module.exports = {
       '/posts': {
         target: 'http://localhost:5000',
         secure: false
+      },
+      '/posts/page/*': {
+        target: 'http://localhost:5000',
+        secure: false
       }
     }
   },

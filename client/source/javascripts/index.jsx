@@ -3,6 +3,6 @@ import ReactDom from 'react-dom';
 
 import HomeStyle from '../stylesheets/style';
 
-import PostsComponent from './posts';
+import MainComponent from './main';
 
-ReactDom.render(<PostsComponent />, document.getElementById('gabba-posts-container'));
+ReactDom.render(<MainComponent />, document.getElementById('gabba-main'));
