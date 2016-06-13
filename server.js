@@ -7,15 +7,15 @@ var cors   = require('cors');
 var indexRouter = require('./routes/index');
 var postsRouter = require('./routes/posts');
 
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
-
 app.enable('trust proxy');
 
 app.use( '/', indexRouter );
 app.use( '/', postsRouter );
 
-app.use(express.static('public'));
+app.use(express.static(__dirname + '/public'));
+app.set('views', __dirname + '/public');
+app.engine('html', require('ejs').renderFile);
+app.set('view engine', 'html');
 
 var server = app.listen(process.env.PORT || 5000, function () {
 
