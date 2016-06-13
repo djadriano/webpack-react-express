@@ -64,13 +64,30 @@ a {
   flex-direction: row;
   flex-wrap: wrap;
 
+  &:hover {
+    li {
+      opacity: 0.6;
+      box-shadow: none;
+    }
+  }
+
   li {
+    transform: translate3d(0,0,0);
+    transition: all 300ms ease-in-out;
     background: #fff;
     flex: 0 1 23%;
     margin: 1%;
-    box-shadow: 3px 3px 5px -2px rgba(153,153,153,1);
     padding: 1%;
-    cursor: pointer;
+
+    img {
+      cursor: pointer;
+    }
+
+    &:hover {
+      transform: scale(1.1);
+      opacity: 1;
+      box-shadow: 3px 3px 5px -2px rgba(153,153,153,1);
+    }
   }
 }
 
