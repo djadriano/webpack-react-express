@@ -55,7 +55,7 @@ export default class PostsComponent extends React.Component {
     let buttonText = (this.state.loading ? 'Loading...' : 'Load more');
 
     if(!this.state.posts.length) {
-      return (<span>Loading posts...</span>);
+      return (<div className="gabba-loading">Loading posts...</div>);
     }
 
     return(
