@@ -7,6 +7,30 @@ $mq:(
   wide   : 1280px
 );
 
+@function strip-unit($value) {
+  @return $value / ($value * 0 + 1);
+}
+
+@mixin vw-type($properties, $min-vw, $max-vw, $min-value, $max-value) {
+  & {
+    @each $property in $properties {
+      #{$property}: calc(#{$min-value} + #{strip-unit($min-value - $max-value)} * ((100vw - #{$min-vw}) / #{strip-unit($max-vw - $min-vw)}));
+    }
+
+    @media screen and (max-width: $min-vw) {
+      @each $property in $properties {
+        #{$property}: $min-value;
+      }
+    }
+
+    @media screen and (min-width: $max-vw) {
+      @each $property in $properties {
+        #{$property}: $max-value;
+      }
+    }
+  }
+}
+
 * {
   box-sizing: border-box
 }
@@ -36,14 +60,12 @@ h1 {
 }
 
 h2 {
-  font-size: 20px;
-  line-height: 20px;
+  @include vw-type((font-size, line-height), 320px, 1280px, 18px, 20px);
 }
 
 h3 {
+  @include vw-type((font-size, line-height), 320px, 1280px, 14px, 16px);
   color: #999;
-  font-size: 14px;
-  line-height: 14px;
 }
 
 a {
@@ -71,12 +93,12 @@ a {
   }
 
   li {
+    @include vw-type(padding, 320px, 1280px, 10px, 10px);
     transform: translate3d(0,0,0);
     transition: all 300ms ease-in-out;
     background: #fff;
-    flex: 0 1 23%;
-    margin: 1%;
-    padding: 1%;
+    flex: 0 1 96%;
+    margin: 3% 2%;
 
     img {
       cursor: pointer;
@@ -86,6 +108,19 @@ a {
       transform: scale(1.1);
       opacity: 1;
       box-shadow: 3px 3px 5px -2px rgba(153,153,153,1);
+    }
+
+    @media screen and (min-width: 768px) {
+      flex: 0 1 46%;
+    }
+
+    @media screen and (min-width: 1024px) {
+      flex: 0 1 31%;
+      margin: 1%;
+    }
+
+    @media screen and (min-width: 1280px) {
+      flex: 0 1 23%;
     }
   }
 }
@@ -114,9 +149,9 @@ a {
 }
 
 .gabba-posts-nav {
+  @include vw-type(padding, 320px, 1280px, 40px, 60px);
   display: flex;
   justify-content: center;
-  margin: 40px 0;
 
   button {
     border: 0;

@@ -64,7 +64,7 @@ export default class PostsComponent extends React.Component {
         {
           this.state.posts.map((item, index) => {
             let itemMap = item.data.items[ 0 ];
-            let postTime = moment(itemMap.snippet.publishedAt).format('DD/M/Y h:mm:ss a');
+            let postTime = moment(itemMap.snippet.publishedAt).format('DD/M/Y - h:mm:ss a');
             let downloadUrl = `http://1gabba.net${item.download}`;
 
             return (
