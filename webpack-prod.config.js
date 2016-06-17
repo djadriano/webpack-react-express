@@ -9,7 +9,6 @@ var stylelint = require("stylelint");
 var rootPath = path.resolve( __dirname );
 
 module.exports = {
-  devtool: 'source-map',
   entry: [
     'webpack-dev-server/client?http://localhost:8080',
     'webpack/hot/only-dev-server',
