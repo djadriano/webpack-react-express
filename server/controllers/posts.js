@@ -75,7 +75,7 @@ module.exports = function() {
             'maxResults'     : 1,
             'type'           : 'video',
             'videoCategoryId': 10,
-            'q'              : item.title
+            'q'              : `"${item.title}"`
         };
 
         var promise = youtube.search.list(queryOptions, function(err, data) {
